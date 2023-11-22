@@ -1,0 +1,14 @@
+services:
+  restreamer:
+    image: datarhei/restreamer:rpi-latest
+    ports:
+      - "8080:8080"
+      - "8181:8181"
+      - "1935:1935"
+      - "1936:1936"
+      - "6000:6000/udp"
+    privileged: true
+    volumes:
+      - "/opt/core/config:/core/config"
+      - "/opt/core/data:/core/data"
+    restart: always
