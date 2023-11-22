@@ -53,7 +53,7 @@ services:
         max-size: 50m
     volumes:
       - ./db:/app/db
-      - ./config:/config
+      - ./config/wg_confs:/config
     env_file: ../stack.env
 
   pihole:
