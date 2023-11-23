@@ -5,7 +5,7 @@ services:
     image: weejewel/wg-easy
     container_name: wg-easy
     volumes:
-      - ./.wg-easy:/etc/wireguard
+      - ./wg-easy:/etc/wireguard
     ports:
       - "51820:51820/udp"
       - "51821:51821/tcp"
@@ -25,8 +25,8 @@ services:
     image: pihole/pihole
     container_name: pihole
     volumes:
-      - './.pihole/etc-pihole:/etc/pihole'
-      - './.pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
+      - './pihole/etc-pihole:/etc/pihole'
+      - './pihole/etc-dnsmasq.d:/etc/dnsmasq.d'
     ports:
       - "53:53/tcp"
       - "53:53/udp"
