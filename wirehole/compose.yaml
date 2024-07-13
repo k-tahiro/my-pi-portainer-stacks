@@ -11,6 +11,8 @@ services:
     container_name: unbound
     restart: unless-stopped
     hostname: unbound
+    volumes:
+      - ./wirehole/unbound:/opt/unbound/etc/unbound/
     networks:
       private_network:
         ipv4_address: 10.2.0.200
@@ -27,8 +29,6 @@ services:
     ports:
       - 5000:5000
       - 51820:51820/udp
-    networks:
-      - private_network
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
@@ -36,7 +36,7 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
       - net.ipv4.ip_forward=1
     volumes:
-      - ./config:/config
+      - ./wirehole/config:/config
     env_file: ../stack.env
 
   wireguard-ui:
@@ -52,8 +52,8 @@ services:
       options:
         max-size: 50m
     volumes:
-      - ./db:/app/db
-      - ./config/wg_confs:/config
+      - ./wirehole/db:/app/db
+      - ./wirehole/config:/config
     env_file: ../stack.env
 
   pihole:
@@ -67,8 +67,8 @@ services:
       - 127.0.0.1
       - ${PIHOLE_DNS}
     volumes:
-      - ./etc-pihole/:/etc/pihole/
-      - ./etc-dnsmasq.d/:/etc/dnsmasq.d/
+      - ./wirehole/etc-pihole/:/etc/pihole/
+      - ./wirehole/etc-dnsmasq.d/:/etc/dnsmasq.d/
     cap_add:
       - NET_ADMIN
     networks:
