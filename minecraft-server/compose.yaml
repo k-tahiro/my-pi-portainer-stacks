@@ -3,6 +3,8 @@ services:
     image: itzg/minecraft-bedrock-server
     environment:
       EULA: "TRUE"
+      TZ: "Asia/Tokyo"
+      SERVER_NAME: "Tahiro Server"
     ports:
       - "19132:19132/udp"
     volumes:
