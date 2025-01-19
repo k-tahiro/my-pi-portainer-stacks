@@ -4,7 +4,8 @@ services:
     environment:
       EULA: "TRUE"
       TZ: "Asia/Tokyo"
-      SERVER_NAME: "Tahiro Server"
+      SERVER_NAME: "たひろサーバー"
+      DIFFICULTY: "peaceful"
     ports:
       - "19132:19132/udp"
     volumes:
