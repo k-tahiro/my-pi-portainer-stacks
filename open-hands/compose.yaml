@@ -8,6 +8,7 @@ services:
       - WORKSPACE_MOUNT_PATH=${WORKSPACE_BASE:-$PWD/workspace}
       - SANDBOX_TIMEOUT=300
       - SANDBOX_USE_HOST_NETWORK=true
+    env_file: ../stack.env
     ports:
       - "3000:3000"
     extra_hosts:
