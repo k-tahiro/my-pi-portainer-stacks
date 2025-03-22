@@ -6,6 +6,9 @@ services:
       - SANDBOX_RUNTIME_CONTAINER_IMAGE=docker.all-hands.dev/all-hands-ai/runtime:0.29.0-nikolaik
       #- SANDBOX_USER_ID=${SANDBOX_USER_ID:-1234} # enable this only if you want a specific non-root sandbox user but you will have to manually adjust permissions of openhands-state for this user
       - WORKSPACE_MOUNT_PATH=${WORKSPACE_BASE:-$PWD/workspace}
+      - DEBUG=true
+      - LLM_BASE_URL=https://openrouter.ai/api/v1
+      - LLM_MODEL=openrouter/deepseek/deepseek-r1:free
     env_file: ../stack.env
     ports:
       - "3000:3000"
