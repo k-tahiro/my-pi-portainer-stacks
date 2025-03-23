@@ -14,3 +14,4 @@ services:
     tty: true
     cap_add:
       - SYS_PTRACE
+    restart: always
