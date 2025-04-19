@@ -8,7 +8,7 @@ services:
       - WORKSPACE_MOUNT_PATH=${WORKSPACE_BASE:-$PWD/workspace}
       - DEBUG=true
       - LLM_BASE_URL=https://openrouter.ai/api/v1
-      - LLM_MODEL=openrouter/deepseek/deepseek-r1:free
+      - LLM_MODEL=openrouter/deepseek/deepseek-chat-v3-0324:free
     env_file: ../stack.env
     ports:
       - "3000:3000"
