@@ -71,6 +71,7 @@ services:
       PROMETHEUS_EXPORTER_PORT: 9394
       SELF_HOSTED: "true"
       STORE_GEODATA: "true"
+    env_file: ../stack.env
     logging:
       driver: "json-file"
       options:
@@ -122,6 +123,7 @@ services:
       PROMETHEUS_EXPORTER_PORT: 9394
       SELF_HOSTED: "true"
       STORE_GEODATA: "true"
+    env_file: ../stack.env
     logging:
       driver: "json-file"
       options:
