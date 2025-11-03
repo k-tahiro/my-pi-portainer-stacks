@@ -28,8 +28,8 @@ services:
       - dawarich
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
       POSTGRES_DB: dawarich_development
+    env_file: ../stack.env
     restart: always
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres -d dawarich_development" ]
@@ -61,11 +61,10 @@ services:
       REDIS_URL: redis://dawarich_redis:6379
       DATABASE_HOST: dawarich_db
       DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: password
       DATABASE_NAME: dawarich_development
       MIN_MINUTES_SPENT_IN_CITY: 60
       APPLICATION_HOSTS: localhost
-      TIME_ZONE: Europe/London
+      TIME_ZONE: Asia/Tokyo
       APPLICATION_PROTOCOL: http
       PROMETHEUS_EXPORTER_ENABLED: "false"
       PROMETHEUS_EXPORTER_HOST: 0.0.0.0
@@ -114,7 +113,6 @@ services:
       REDIS_URL: redis://dawarich_redis:6379
       DATABASE_HOST: dawarich_db
       DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: password
       DATABASE_NAME: dawarich_development
       APPLICATION_HOSTS: localhost
       BACKGROUND_PROCESSING_CONCURRENCY: 10
