@@ -1,9 +1,10 @@
 services:
   caddy-builder:
     image: caddy:builder-alpine
+    restart: no
     volumes:
-      - ./caddy_build/:/caddy_build/
-    command: xcaddy build --output /caddy_build/caddy --with github.com/caddy-dns/cloudflare
+      - caddy_build:/build
+    command: xcaddy build --output /build/caddy --with github.com/caddy-dns/cloudflare
 
   caddy:
     image: caddy:alpine
@@ -20,7 +21,14 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
-      - ./caddy_build/caddy:/usr/bin/caddy
+      - caddy_build:/build
+    command:
+      - sh
+      - -c
+      - |
+        cp /build/caddy /usr/bin/caddy && \
+        chmod +x /usr/bin/caddy && \
+        caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
     depends_on:
       caddy-builder:
         condition: service_completed_successfully
@@ -28,6 +36,7 @@ services:
 volumes:
   caddy_data:
   caddy_config:
+  caddy_build:
 
 configs:
   caddyfile:
