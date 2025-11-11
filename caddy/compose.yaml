@@ -21,4 +21,8 @@ volumes:
 
 configs:
   caddyfile:
-    file: ./caddy/conf/Caddyfile
+    content: |
+      portainer.tahiro.org {
+          reverse_proxy 127.0.0.1:9002
+      }
+
