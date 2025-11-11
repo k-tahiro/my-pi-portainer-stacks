@@ -1,4 +1,10 @@
 services:
+  caddy-builder:
+    image: caddy:builder-alpine
+    volumes:
+      - ./caddy_build/:/caddy_build/
+    command: xcaddy build --output /caddy_build/caddy --with github.com/caddy-dns/cloudflare
+
   caddy:
     image: caddy:alpine
     restart: unless-stopped
@@ -14,6 +20,10 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
+      - ./caddy_build/caddy:/usr/bin/caddy
+    depends_on:
+      caddy-builder:
+        condition: service_completed_successfully
 
 volumes:
   caddy_data:
