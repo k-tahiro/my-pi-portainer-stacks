@@ -2,11 +2,11 @@ version: '3'
 services:
   openwebui:
     image: ghcr.io/open-webui/open-webui:main-slim
+    restart: unless-stopped
     ports:
       - 3001:8080
     volumes:
       - open-webui:/app/backend/data
     env_file: ../stack.env
-    restart: unless-stopped
 volumes:
   open-webui:
