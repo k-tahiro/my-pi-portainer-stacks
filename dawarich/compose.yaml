@@ -49,7 +49,7 @@ services:
     networks:
       - dawarich
       - proxy
-    ports:
+    # ports:
     # - 3000:3000 # Uncomment for direct access to the app, not needed if using a reverse proxy
     # - 9394:9394 # Prometheus exporter, uncomment if needed
     stdin_open: true
