@@ -1,5 +1,8 @@
 networks:
   dawarich:
+  proxy:
+    external: true
+
 services:
   dawarich_redis:
     image: redis:7.4-alpine
