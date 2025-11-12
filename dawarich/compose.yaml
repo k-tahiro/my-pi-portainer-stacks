@@ -67,7 +67,6 @@ services:
       DATABASE_USERNAME: postgres
       DATABASE_NAME: dawarich_development
       MIN_MINUTES_SPENT_IN_CITY: 60
-      APPLICATION_HOSTS: localhost
       TIME_ZONE: Asia/Tokyo
       APPLICATION_PROTOCOL: http
       PROMETHEUS_EXPORTER_ENABLED: "false"
