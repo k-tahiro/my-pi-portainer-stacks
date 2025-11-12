@@ -7,6 +7,6 @@ services:
     volumes:
       - open-webui:/app/backend/data
     env_file: ../stack.env
-    restart: always
+    restart: unless-stopped
 volumes:
   open-webui:
