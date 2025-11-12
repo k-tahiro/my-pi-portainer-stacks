@@ -48,6 +48,7 @@ services:
       - dawarich_db_data:/dawarich_db_data
     networks:
       - dawarich
+      - proxy
     ports:
       - 3000:3000
     # - 9394:9394 # Prometheus exporter, uncomment if needed
