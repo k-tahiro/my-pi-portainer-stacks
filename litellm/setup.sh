@@ -18,3 +18,6 @@ yq eval '
     .value.env_file = "../stack.env"
   )
 ' compose.yaml -i
+
+# dbサービスのイメージをalpineベースに変更（バージョンは維持）
+yq eval '.services.db.image |= sub("^(postgres:[^ ]+)", "${1}-alpine")' compose.yaml -i
