@@ -21,14 +21,14 @@ services:
       - /etc/localtime:/etc/localtime:ro
     env_file:
       - ../stack.env
-    ports:
-      - '2283:2283'
     depends_on:
       - redis
       - database
     restart: always
     healthcheck:
       disable: false
+    networks:
+      - proxy
   immich-machine-learning:
     container_name: immich_machine_learning
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
