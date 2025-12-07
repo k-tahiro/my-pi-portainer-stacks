@@ -12,8 +12,8 @@ if command -v yq >/dev/null 2>&1; then
 
     # immich-serverをproxyネットワークにJOINさせる
     yq -i '.services["immich-server"].networks += ["proxy"]' compose.yaml
-    # networksセクションがなければ追加
-    if ! yq '.networks.proxy' compose.yaml >/dev/null 2>&1; then
+    # networksセクションにproxyキーがなければ追加
+    if ! yq eval 'has("networks") and .networks | has("proxy")' compose.yaml | grep -q true; then
         echo -e '\nnetworks:\n  proxy:\n    external: true' >> compose.yaml
     fi
     echo "immich-server joined to proxy network"

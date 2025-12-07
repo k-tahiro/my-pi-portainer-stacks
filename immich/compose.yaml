@@ -67,3 +67,6 @@ services:
     restart: always
 volumes:
   model-cache:
+networks:
+  proxy:
+    external: true
