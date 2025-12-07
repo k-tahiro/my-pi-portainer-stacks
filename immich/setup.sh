@@ -17,6 +17,10 @@ if command -v yq >/dev/null 2>&1; then
         echo -e '\nnetworks:\n  proxy:\n    external: true' >> compose.yaml
     fi
     echo "immich-server joined to proxy network"
+
+    # immich-serverのportsセクションを削除（proxy経由アクセス用）
+    yq -i 'del(.services["immich-server"].ports)' compose.yaml
+    echo "immich-server ports section removed for proxy access"
 else
     echo "yq is not installed. Please install yq to use this feature."
 fi
