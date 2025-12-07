@@ -1,13 +1,22 @@
 #!/usr/bin/env bash
 
-# Get the code
+# Immich公式のcompose.yamlとexample.envを取得
 wget -O compose.yaml https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
 wget -O .env https://github.com/immich-app/immich/releases/latest/download/example.env
 
-# env_fileをyqで../stack.envに置換（env_file指定があるものだけ）
+# yqがインストールされていれば各種自動編集
 if command -v yq >/dev/null 2>&1; then
+    # env_fileを../stack.envに置換（env_file指定があるサービスのみ）
     yq -i '(.services[] | select(.env_file)) |= .env_file = ["../stack.env"]' compose.yaml
     echo "env_file replaced with ../stack.env for services with env_file using yq"
+
+    # immich-serverをproxyネットワークにJOINさせる
+    yq -i '.services["immich-server"].networks += ["proxy"]' compose.yaml
+    # networksセクションがなければ追加
+    if ! yq '.networks.proxy' compose.yaml >/dev/null 2>&1; then
+        echo -e '\nnetworks:\n  proxy:\n    external: true' >> compose.yaml
+    fi
+    echo "immich-server joined to proxy network"
 else
     echo "yq is not installed. Please install yq to use this feature."
 fi
