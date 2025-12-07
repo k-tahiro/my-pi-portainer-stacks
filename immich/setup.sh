@@ -10,13 +10,16 @@ if command -v yq >/dev/null 2>&1; then
     yq -i '(.services[] | select(.env_file)) |= .env_file = ["../stack.env"]' compose.yaml
     echo "env_file replaced with ../stack.env for services with env_file using yq"
 
-    # immich-serverをproxyネットワークにJOINさせる
+    # immichネットワークを追加し、全サービスにアタッチ（既存ネットワークは維持）
+    yq -i '.networks.immich = {}' compose.yaml
+    for service in $(yq eval '.services | keys | .[]' compose.yaml); do
+        yq -i ".services[\"$service\"].networks += [\"immich\"]" compose.yaml
+        echo "${service} attached to immich network"
+    done
+
+    # proxyネットワークを追加し、immich-serverをproxyネットワークにアタッチ
+    yq -i '.networks.proxy = {"external": true}' compose.yaml
     yq -i '.services["immich-server"].networks += ["proxy"]' compose.yaml
-    # networksセクションにproxyキーがなければ追加
-    if ! yq eval 'has("networks") and .networks | has("proxy")' compose.yaml | grep -q true; then
-        echo -e '\nnetworks:\n  proxy:\n    external: true' >> compose.yaml
-    fi
-    echo "immich-server joined to proxy network"
 
     # immich-serverのportsセクションを削除（proxy経由アクセス用）
     yq -i 'del(.services["immich-server"].ports)' compose.yaml
