@@ -20,6 +20,7 @@ if command -v yq >/dev/null 2>&1; then
     # proxyネットワークを追加し、immich-serverをproxyネットワークにアタッチ
     yq -i '.networks.proxy = {"external": true}' compose.yaml
     yq -i '.services["immich-server"].networks += ["proxy"]' compose.yaml
+    echo "immich-server joined to proxy network"
 
     # immich-serverのportsセクションを削除（proxy経由アクセス用）
     yq -i 'del(.services["immich-server"].ports)' compose.yaml
