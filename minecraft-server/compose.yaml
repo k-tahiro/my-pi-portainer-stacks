@@ -5,7 +5,7 @@ services:
       EULA: "TRUE"
       TZ: "Asia/Tokyo"
       SERVER_NAME: "たひろサーバー"
-      DIFFICULTY: "peaceful"
+      DIFFICULTY: "easy"
     ports:
       - "19132:19132/udp"
     volumes:
